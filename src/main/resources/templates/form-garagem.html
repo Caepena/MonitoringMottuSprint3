@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="forest" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <title>Monitoring Mottu</title>
+</head>
+<body>
+
+<nav class="navbar bg-base-300 shadow-sm">
+    <div class="flex-1">
+        <a href="/garagem" class="btn btn-ghost text-xl">Monitoring Mottu</a>
+    </div>
+
+    <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+            <li><a href="/moto" th:text="#{moto}"></a></li>
+            <li><a href="/garagem" th:text="#{garagem}"></a>
+        </ul>
+    </div>
+
+    <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+            <li>
+                <details>
+                    <summary>🌎</summary>
+                    <ul class="bg-base-100 rounded-t-none p-2">
+                        <li><a href="?lang=pt_BR">BR</a></li>
+                        <li><a href="?lang=en_US">US</a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main class="grid place-items-center gap-4 p-8">
+    <form class="w-full max-w-md" method="post" th:object="${garagem}" th:action="${'/garagem/form'}">
+        <fieldset class="fieldset">
+            <legend class="fieldset-legend" th:text="#{endereco}"></legend>
+            <input th:field="*{endereco}" th:errorclass="input-error" type="text" class="input" />
+            <p class="label text-error" th:errors="*{endereco}"></p>
+        </fieldset>
+
+        <fieldset class="fieldset">
+            <legend class="fieldset-legend" th:text="#{responsavel}"></legend>
+            <textarea th:field="*{responsavel}" th:errorclass="textarea-error" class="textarea" ></textarea>
+            <p class="label text-error" th:errors="*{responsavel}"></p>
+        </fieldset>
+
+        <div class="space-x-4">
+            <a href="/garagem" class="btn btn-neutral" th:text="#{cancel}"></a>
+            <button class="btn btn-primary" th:text="#{save}"></button>
+        </div>
+
+    </form>
+</main>
+
+</body>
+</html>

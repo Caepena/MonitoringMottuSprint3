@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="forest" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <title>Monitoring Mottu</title>
+</head>
+<body>
+
+<nav class="navbar bg-base-300 shadow-sm">
+    <div class="flex-1">
+        <a href="/garagem" class="btn btn-ghost text-xl">Monitoring Mottu</a>
+    </div>
+
+    <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+            <li><a href="/moto" th:text="#{moto}"></a></li>
+            <li><a href="/garagem" th:text="#{garagem}"></a>
+        </ul>
+    </div>
+
+    <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+            <li>
+                <details>
+                    <summary>🌎</summary>
+                    <ul class="bg-base-100 rounded-t-none p-2">
+                        <li><a href="?lang=pt_BR">BR</a></li>
+                        <li><a href="?lang=en_US">US</a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<a href="/garagem/form" class="btn btn-primary " th:text="#{garagem.new}"></a>
+
+<div th:if="${message}" role="alert" class="alert alert-success alert-soft m-4">
+    <span th:text="${message}"></span>
+</div>
+
+<main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 p-8">
+    <div th:each="garagem : ${garagens}" class="card card-border bg-base-300 w-96">
+        <div th:text="${garagem.endereco}" class="badge badge-accent m-4"></div>
+
+        <div class="card-body items-center">
+            <h2 th:text="${garagem.responsavel}" class="card-title"></h2>
+        </div>
+
+        <div class="card-actions justify-end m-4">
+            <form method="post" th:action="${'/garagem/' + garagem.id}">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button class="btn btn-primary" th:text="#{delete}"></button>
+            </form>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
